@@ -15,7 +15,7 @@ The app covers four complementary tasks:
 - **Outfit building** on an illustrated watercolour figure with customisable skin tone, hair, eyes and body type, plus rule-based feedback and AI-suggested combinations.
 - **Gap-based shopping suggestions** that only propose pieces that pair with what you own.
 
-Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else — storage, colour rules and the illustration — runs locally in the browser.
+Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else (storage, colour rules and the illustration) runs locally in the browser.
 
 There is no backend: the whole app is plain HTML, CSS and JavaScript, so it can be hosted for free on GitHub Pages.
 
