@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Figurino</title>
+<meta name="description" content="Your style, your wardrobe and your outfits, drawn in watercolour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..800;1,9..144,500..700&family=Work+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='9' r='5' fill='%23A6481F'/%3E%3Cpath d='M9 30 L12 15 L20 15 L23 30 Z' fill='%232F4A35'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>Figu<em>rino</em></h1>
+      <p>Your style, your wardrobe, your outfits — drawn.</p>
+    </div>
+  </header>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#style" data-view="style">My style</a>
+    <a href="#wardrobe" data-view="wardrobe">Wardrobe</a>
+    <a href="#outfits" data-view="outfits">Outfits</a>
+    <a href="#shopping" data-view="shopping">Shopping list</a>
+    <a href="#settings" data-view="settings">Settings</a>
+  </nav>
+
+  <!-- MY STYLE -->
+  <section id="view-style" hidden>
+    <div id="style-empty" class="panel" style="display: flex; flex-direction: column; gap: 16px">
+      <p class="eyebrow">First step</p>
+      <p class="lead">Upload 3 to 15 images that inspire you: screenshots of a Pinterest board, outfits you love, people whose style you envy. Figurino turns them into a palette, silhouettes, "vibes" and rules for putting outfits together.</p>
+      <label class="drop" id="style-drop">
+        <input type="file" id="style-files" accept="image/*" multiple>
+        <strong>Choose or drop images here</strong>
+        <span class="hint">JPG or PNG; HEIC from iPhone works in Safari</span>
+      </label>
+      <div id="style-thumbs" class="thumbs"></div>
+      <label class="field" for="style-notes">Anything to add? (optional)
+        <textarea id="style-notes" placeholder="e.g. I also love blue and green; I want to be more maximalist with accessories"></textarea>
+      </label>
+      <div class="row">
+        <button class="btn" id="style-go" type="button">Analyse my style</button>
+        <button class="btn ghost" id="demo-go" type="button">Try the example</button>
+      </div>
+      <p class="status" id="style-status" aria-live="polite"></p>
+    </div>
+    <div id="style-view" style="display: flex; flex-direction: column; gap: 22px" hidden></div>
+  </section>
+
+  <!-- WARDROBE -->
+  <section id="view-wardrobe" style="display: flex; flex-direction: column; gap: 20px" hidden>
+    <div class="row" style="justify-content: space-between">
+      <div class="stats" id="stats" aria-live="polite"></div>
+      <label class="btn" for="item-files">Add items</label>
+      <input type="file" id="item-files" accept="image/*" multiple hidden>
+    </div>
+    <p class="hint">One photo per item, laid flat on a plain background in daylight. You can pick many at once: they are analysed one by one.</p>
+    <div id="item-progress" class="progress" hidden><span class="status" id="item-status" aria-live="polite"></span><div class="bar"><span></span></div></div>
+    <div class="row" role="group" aria-label="Filters">
+      <button class="chip" data-fv="" aria-pressed="true">All</button>
+      <button class="chip" data-fv="keep" aria-pressed="false">Keep</button>
+      <button class="chip" data-fv="keep-if" aria-pressed="false">Keep if…</button>
+      <button class="chip" data-fv="let-go" aria-pressed="false">Let go</button>
+      <label for="f-slot" class="hint" style="margin-left: 8px">Type</label>
+      <select id="f-slot"><option value="">All</option></select>
+      <label for="f-vibe" class="hint">Vibe</label>
+      <select id="f-vibe"><option value="">All</option></select>
+    </div>
+    <div id="grid" class="grid"></div>
+    <div id="grid-empty" class="empty"><strong>Your wardrobe is empty</strong>Add photos of your clothes, or load the example from "My style".</div>
+  </section>
+
+  <!-- OUTFITS -->
+  <section id="view-outfits" class="prova" hidden>
+    <div class="stage">
+      <svg id="dummy" role="img" aria-label="Fashion figure wearing the chosen outfit"></svg>
+      <p class="why" id="why" hidden></p>
+      <div><p class="eyebrow" style="margin-bottom: 6px">Outfit colours</p><div class="strip" id="strip"></div></div>
+      <div><p class="eyebrow" style="margin-bottom: 6px">How it reads</p><ul class="reading" id="reading" aria-live="polite"></ul></div>
+    </div>
+    <div class="choices">
+      <div>
+        <p class="eyebrow" style="margin-bottom: 8px">Saved outfits</p>
+        <div class="saved" id="saved"></div>
+        <p class="hint" id="saved-empty">No saved outfits yet.</p>
+      </div>
+      <div class="row"><button class="btn ghost" id="ideas-go" type="button">Suggest outfits</button><span class="status" id="ideas-status" aria-live="polite"></span></div>
+      <div id="pickers"></div>
+      <div><p class="eyebrow" style="margin-bottom: 8px">Tights</p><div class="sws" id="tights" role="group" aria-label="Tights colour"></div></div>
+      <form class="row" id="save-form">
+        <label for="outfit-name" class="hint" style="flex-basis: 100%">Like it? Give it a name and save it.</label>
+        <input id="outfit-name" type="text" placeholder="e.g. Sunday in the woods" maxlength="60" style="flex: 1 1 200px">
+        <button class="btn" type="submit">Save outfit</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SHOPPING -->
+  <section id="view-shopping" style="display: flex; flex-direction: column; gap: 22px; max-width: 860px" hidden>
+    <p class="lead">Every purchase should pair with at least three things you already own. Look second-hand first: that is where the pieces with the most character are.</p>
+    <div class="row"><button class="btn" id="shop-go" type="button">Suggest what to buy</button><span class="status" id="shop-status" aria-live="polite"></span></div>
+    <div id="shop-groups" style="display: flex; flex-direction: column; gap: 24px"></div>
+    <form class="row" id="shop-form">
+      <label for="shop-new" class="hint" style="flex-basis: 100%">Add something to the list</label>
+      <input id="shop-new" type="text" placeholder="e.g. Rust wool beret" maxlength="100" style="flex: 1 1 220px">
+      <button class="btn ghost" type="submit">Add</button>
+    </form>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="view-settings" style="display: flex; flex-direction: column; gap: 20px; max-width: 760px" hidden>
+    <div class="panel" style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: var(--display)">Anthropic API key</h2>
+      <p class="hint">Figurino uses Claude to analyse photos. Your key stays in this browser only, and photos go straight to Anthropic without passing through any other server. You can create a key at <a href="https://console.anthropic.com/" target="_blank" rel="noopener">console.anthropic.com</a>; each analysis costs a few cents.</p>
+      <label class="field" for="api-key">Key
+        <input type="password" id="api-key" autocomplete="off" placeholder="sk-ant-…">
+      </label>
+      <label class="field" for="api-model">Model
+        <select id="api-model"></select>
+      </label>
+      <div class="row">
+        <button class="btn" id="key-save" type="button">Save</button>
+        <button class="btn ghost" id="key-test" type="button">Test the key</button>
+        <button class="btn ghost" id="key-del" type="button">Remove the key</button>
+      </div>
+      <p class="status" id="key-status" aria-live="polite"></p>
+    </div>
+    <div class="panel" style="display: flex; flex-direction: column; gap: 14px">
+      <h2 style="margin: 0; font-family: var(--display)">Your data</h2>
+      <p class="hint">Wardrobe, photos, outfits and shopping list are stored only in this browser. Export a backup so you don't lose them, or to move them to another device.</p>
+      <div class="row">
+        <button class="btn ghost" id="export-go" type="button">Export backup</button>
+        <label class="btn ghost" for="import-file">Import backup</label>
+        <input type="file" id="import-file" accept="application/json,.json" hidden>
+        <button class="btn ghost" id="demo-load" type="button">Load the example</button>
+        <button class="btn danger" id="wipe-go" type="button">Delete everything</button>
+      </div>
+      <p class="status" id="data-status" aria-live="polite"></p>
+    </div>
+  </section>
+</div>
+
+<dialog id="edit">
+  <form method="dialog" id="edit-form">
+    <h2>Edit item</h2>
+    <label class="field" for="e-name">Name<input type="text" id="e-name" maxlength="80"></label>
+    <div class="two">
+      <label class="field" for="e-slot">Type<select id="e-slot"></select></label>
+      <label class="field" for="e-shape">Shape<select id="e-shape"></select></label>
+    </div>
+    <div class="two">
+      <label class="field" for="e-color">Colour<input type="text" id="e-color"></label>
+      <label class="field" for="e-hex">Shade<input type="color" id="e-hex"></label>
+    </div>
+    <div class="two">
+      <label class="field" for="e-pattern">Pattern<select id="e-pattern"></select></label>
+      <label class="field" for="e-texture">Fabric<select id="e-texture"></select></label>
+    </div>
+    <div class="two">
+      <label class="field" for="e-type">Bag type<select id="e-type"></select></label>
+      <label class="field" for="e-sleeves">Sleeves<select id="e-sleeves"><option value="">—</option><option value="short">Short</option><option value="long">Long</option></select></label>
+    </div>
+    <div class="two">
+      <label class="field" for="e-verdict">Verdict<select id="e-verdict"><option value="keep">Keep</option><option value="keep-if">Keep if…</option><option value="let-go">Let go</option></select></label>
+      <label class="field" for="e-pot">Potential (1–5)<input type="range" id="e-pot" min="1" max="5" step="1"></label>
+    </div>
+    <fieldset style="border: none; padding: 0; margin: 0"><legend style="margin-bottom: 6px; font-weight: 600; font-size: 14px">Vibes</legend><div class="checks" id="e-vibes"></div></fieldset>
+    <label class="field" for="e-notes">Notes<textarea id="e-notes"></textarea></label>
+    <div class="row" style="justify-content: flex-end">
+      <button class="btn ghost" value="cancel" type="submit" formnovalidate>Cancel</button>
+      <button class="btn" value="save" type="submit">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="js/color.js"></script>
+<script src="js/figurino.js"></script>
+<script src="js/store.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
