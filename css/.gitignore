@@ -1,0 +1,24 @@
+# --- OS files ---
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# --- Editors and IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Personal data: never commit wardrobe backups or test photos ---
+figurino-backup-*.json
+*.backup.json
+photos/
+private/
+
+# --- Local tooling (if you ever add any) ---
+node_modules/
+.env
+.env.*
+*.log
