@@ -15,7 +15,7 @@ The app covers four complementary tasks:
 - **Outfit building** on an illustrated watercolour figure, with rule-based feedback and AI-suggested combinations.
 - **Gap-based shopping suggestions** that only propose pieces that pair with what you own.
 
-Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else — storage, colour rules and the illustration — runs locally in the browser.
+Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else (storage, colour rules and the illustration) runs locally in the browser.
 
 There is no backend: the whole app is plain HTML, CSS and JavaScript, so it can be hosted for free on GitHub Pages.
 
@@ -83,7 +83,7 @@ Claude returns a structured style guide:
 - **outfit formulas** per vibe, with concrete examples;
 - **practical styling rules**.
 
-The response is requested as strict JSON and validated before it is stored: colours must be valid hex values, vibe ids are renumbered, and unknown fields are discarded.
+The response is requested as strict JSON and validated before it is stored: colours must be valid hex values, vibe IDs are renumbered, and unknown fields are discarded.
 
 ---
 
@@ -222,7 +222,6 @@ The site will be available at `https://<username>.github.io/<repository>/`.
 
 - Automatic background removal for item photos.
 - An outfit calendar with wear statistics ("items you never wear").
-- More poses and body types for the figure.
 - Installable Progressive Web App with offline support.
 - Optional sync across devices.
 - Multi-language interface.
