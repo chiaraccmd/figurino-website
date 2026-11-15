@@ -12,10 +12,10 @@ The app covers four complementary tasks:
 
 - **Style analysis** from a moodboard of inspiration images.
 - **Wardrobe cataloguing** from photos of each item, with an honest verdict against your style.
-- **Outfit building** on an illustrated watercolour figure, with rule-based feedback and AI-suggested combinations.
+- **Outfit building** on an illustrated watercolour figure with customisable skin tone, hair, eyes and body type, plus rule-based feedback and AI-suggested combinations.
 - **Gap-based shopping suggestions** that only propose pieces that pair with what you own.
 
-Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else (storage, colour rules and the illustration) runs locally in the browser.
+Image understanding is done by **Claude** (Anthropic), called directly from the browser with the **user's own API key**. Everything else — storage, colour rules and the illustration — runs locally in the browser.
 
 There is no backend: the whole app is plain HTML, CSS and JavaScript, so it can be hosted for free on GitHub Pages.
 
@@ -83,7 +83,7 @@ Claude returns a structured style guide:
 - **outfit formulas** per vibe, with concrete examples;
 - **practical styling rules**.
 
-The response is requested as strict JSON and validated before it is stored: colours must be valid hex values, vibe IDs are renumbered, and unknown fields are discarded.
+The response is requested as strict JSON and validated before it is stored: colours must be valid hex values, vibe ids are renumbered, and unknown fields are discarded.
 
 ---
 
@@ -135,6 +135,26 @@ displaced ink outline               → wobbly pen line
 ```
 
 The paper texture and the colour wash behind the figure are generated the same way, and the wash takes its colours from the outfit.
+
+### Figure customisation
+
+The figure can be adjusted to look more like its owner (Outfits → *Customise the figure*). Choices are saved with the rest of the data.
+
+| Option | Choices |
+| --- | --- |
+| Skin tone | 8 tones, from porcelain to deep |
+| Hair colour | black, dark brown, brown, auburn, copper, blonde, platinum, grey |
+| Hairstyle | bixie, pixie, bob, long and straight, long curls, afro, bun, ponytail, two braids |
+| Eyes | closed or open, with 6 eye colours |
+| Body type | standard, slim, athletic, pear, hourglass, apple, plus size |
+
+Body types are implemented as a **width profile** rather than separate drawings. Every path coordinate is remapped horizontally around the figure's centre line,
+
+```text
+x' = 200 + (x − 200) · k(y)
+```
+
+where `k(y)` interpolates between width factors at the shoulders, bust, waist, hips, thighs and calves. Because body and garments share the same coordinate system, every item of clothing follows the chosen body automatically.
 
 ---
 
@@ -222,6 +242,7 @@ The site will be available at `https://<username>.github.io/<repository>/`.
 
 - Automatic background removal for item photos.
 - An outfit calendar with wear statistics ("items you never wear").
+- More poses and a height option for the figure.
 - Installable Progressive Web App with offline support.
 - Optional sync across devices.
 - Multi-language interface.

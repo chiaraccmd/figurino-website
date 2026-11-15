@@ -77,6 +77,21 @@
   <section id="view-outfits" class="prova" hidden>
     <div class="stage">
       <svg id="dummy" role="img" aria-label="Fashion figure wearing the chosen outfit"></svg>
+      <details class="fig-opts">
+        <summary>Customise the figure</summary>
+        <div class="fig-grid">
+          <div><p class="eyebrow" style="margin-bottom: 6px">Skin tone</p><div class="sws" id="fo-skin" role="group" aria-label="Skin tone"></div></div>
+          <div><p class="eyebrow" style="margin-bottom: 6px">Hair colour</p><div class="sws" id="fo-hair" role="group" aria-label="Hair colour"></div></div>
+          <div class="two">
+            <label class="field" for="fo-style">Hairstyle<select id="fo-style"></select></label>
+            <label class="field" for="fo-body">Body type<select id="fo-body"></select></label>
+          </div>
+          <div class="two">
+            <label class="field" for="fo-eyes">Eyes<select id="fo-eyes"></select></label>
+            <div id="fo-eyecol-wrap"><p class="eyebrow" style="margin-bottom: 6px">Eye colour</p><div class="sws" id="fo-eyecol" role="group" aria-label="Eye colour"></div></div>
+          </div>
+        </div>
+      </details>
       <p class="why" id="why" hidden></p>
       <div><p class="eyebrow" style="margin-bottom: 6px">Outfit colours</p><div class="strip" id="strip"></div></div>
       <div><p class="eyebrow" style="margin-bottom: 6px">How it reads</p><ul class="reading" id="reading" aria-live="polite"></ul></div>
